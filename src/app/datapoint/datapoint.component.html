@@ -1,0 +1,93 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-primary" style="height: calc(100vh - 285px);">
+        <div class="panel-heading">Search Form</div>
+        <div class="panel-body">
+          <form class="form" [formGroup]="dataPointSearchForm" (ngSubmit)="onSubmit(dataPointSearchForm)">
+            <div class="form-group">
+              <label for="tagName" class="col-4">Tag Name:</label>
+              <div class="col-8"><input id="tagName" type="text" class="form-control" formControlName="tagName"/></div>
+            </div>
+            <div class="form-group">
+              <label for="startNumber" class="col-4">Start Time:</label>
+              <div class="row">
+                  <div class="col-xs-4"><input id="startNumber" type="number" class="form-control" formControlName="startNumber" maxlength="2"/></div>
+                  <div class="col-xs-8">
+                      <select id="startTime" class="form-control" formControlName="startTime">
+                          <option value="y">Year ago</option>
+                          <option value="mm">Month ago</option>
+                          <option value="w">Week ago</option>
+                          <option value="d">Day ago</option>
+                          <option value="h">hour ago</option>
+                          <option value="mi">Minute ago</option>
+                          <option value="s">Second ago</option>
+                          <option value="ms">Mili Second ago</option>
+                      </select>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group">
+              <label for="endNumber" class="col-4">End Time:</label>
+              <div class="row">
+                  <div class="col-xs-4"><input id="endNumber" type="number" class="form-control" formControlName="endNumber" maxlength="2"/></div>
+                  <div class="col-xs-8">
+                    <select id="endTime" class="form-control" formControlName="endTime">
+                        <option value="y">Year ago</option>
+                        <option value="mm">Month ago</option>
+                        <option value="w">Week ago</option>
+                        <option value="d">Day ago</option>
+                        <option value="h">hour ago</option>
+                        <option value="mi">Minute ago</option>
+                        <option value="s">Second ago</option>
+                        <option value="ms">Mili Second ago</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="col-offset-2 col-10">
+                <button type="submit" class="btn btn-primary btn-md">Load</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="panel panel-primary" style="height: calc(100vh - 100px);">
+        <div class="panel-heading">Datapoints</div>
+        <div class="panel-body">
+          <div class="row" *ngIf="dataPoints">
+            <div class="col-12">
+              <div class="table-responsive" style="max-height: calc(100vh - 170px);">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Humidity</th>
+                      <th>Temperature</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let dataPoint of dataPoints; let i=index">
+                      <td>{{i + 1}}</td>
+                      <td>{{dataPoint[0]}}</td>
+                      <td>{{dataPoint[1]}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="!dataPoints">
+            <div class="col-xs-2 col-xs-offset-6">
+              <span class='glyphicon-left glyphicon glyphicon-refresh spinning'></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

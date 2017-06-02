@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="panel panel-primary" style="height: calc(100vh - 100px);">
+    <div class="panel-heading">Available Tags</div>
+    <div class="panel-body">
+      <div class="row" *ngIf="results">
+        <div class="col-12">
+          <div class="table-responsive" style="max-height: calc(100vh - 170px);">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let result of results; let i=index">
+                  <td>{{i + 1}}</td>
+                  <td>{{result}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!results">
+        <div class="col-xs-2 col-xs-offset-6">
+          <span class='glyphicon-left glyphicon glyphicon-refresh spinning'></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
