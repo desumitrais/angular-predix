@@ -1,6 +1,6 @@
-# Angular2
+# Angular2 - Predix
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.6.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.6. The purpose of this project is for displaying data from Predix. The data itself was added by Arduino through [winddata-timeseries-service](https://github.com/desumitrais/winddata-timeseries-service)
 
 ## Development server
 
