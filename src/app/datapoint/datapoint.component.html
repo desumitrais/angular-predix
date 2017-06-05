@@ -74,7 +74,7 @@
                   <tbody>
                     <tr *ngFor="let dataPoint of dataPoints; let i=index">
                       <td>{{i + 1}}</td>
-                      <td>{{dataPoint[0]}}</td>
+                      <td>{{dataPoint[0] | date: 'dd MMM yyyy hh:mm:ss'}}</td>
                       <td>{{dataPoint[3]}}</td>
                       <td>{{dataPoint[4]}}</td>
                     </tr>
