@@ -66,15 +66,17 @@
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Humidity</th>
+                      <th>Time Series</th>
                       <th>Temperature</th>
+                      <th>Humidity</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let dataPoint of dataPoints; let i=index">
                       <td>{{i + 1}}</td>
                       <td>{{dataPoint[0]}}</td>
-                      <td>{{dataPoint[1]}}</td>
+                      <td>{{dataPoint[3]}}</td>
+                      <td>{{dataPoint[4]}}</td>
                     </tr>
                   </tbody>
                 </table>

@@ -13,8 +13,9 @@ export class DataPointComponent {
     private baseUrl:string = 'https://tranquil-savannah-54974.herokuapp.com';
     //private baseUrl:string = 'http://localhost:9092';
 
-    dataPoints:number[][];
+    dataPoints:any[][];
     dataPointSearchForm:FormGroup;
+    show = false;
 
     constructor(private http:Http) {}
 
@@ -22,14 +23,14 @@ export class DataPointComponent {
         this.dataPoints = null;
         
         this.dataPointSearchForm = new FormGroup({
-            tagName: new FormControl('Compressor-2015:CompressionRatio'),
+            tagName: new FormControl('ArduinoPredixDevice'),
             startNumber: new FormControl(1),
             startTime: new FormControl('y'),
             endNumber: new FormControl(1),
             endTime: new FormControl('s')
         });
         
-        this.getAllDataPoints({tagName:'Compressor-2015:CompressionRatio', startNumber:1, startTime:'y', endNumber:1, endTime:'s'}).subscribe(
+        this.getAllDataPoints({tagName:'ArduinoPredixDevice', startNumber:1, startTime:'y', endNumber:1, endTime:'s'}).subscribe(
             dataPoints => this.dataPoints = dataPoints,
             err => {
                 console.log(err);
@@ -39,7 +40,7 @@ export class DataPointComponent {
 
     onSubmit({value, valid}:{value:DataPointsSearch, valid:boolean}) {
         this.dataPoints = null;
-        
+
         this.getAllDataPoints(value).subscribe(
             dataPoints => this.dataPoints = dataPoints,
             err => {
@@ -67,8 +68,30 @@ export class DataPointComponent {
         return this.http.get(urlPath).map(this.mapDataPoints);
     }
     
-    mapDataPoints(response:Response):number[][] {
-        return response.json().tags[0].results[0].values;
+    mapDataPoints(response:Response):any[][] {
+        let resultsArray = response.json().tags[0].results;
+        let valuesArray:any[][];
+
+        resultsArray.forEach(resultData => {
+            if(resultData.groups.length !== 0 && resultData.groups[0].type === "text") {
+                valuesArray = resultData.values;
+            }
+        });
+
+        if(valuesArray) {
+            valuesArray.forEach(element => {
+                element[0] = new Date(element[0]);
+                const [temperature, humidity] = element[1].split('|');
+                element[3] = temperature;
+                element[4] = humidity;
+            });
+
+            return valuesArray;
+        } else {
+            let empty:any[][] = [["", "", "", "", ""]];
+            return empty;
+        }
+
     }
 }
 
